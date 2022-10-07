@@ -316,39 +316,6 @@ function TableCustom() {
                     </Select>
                 </Row>
                 <Row>
-                    <Text>Kích thước</Text>
-                    <Select
-                        value={newEntity?.size}
-                        style={{ width: 120 }}
-                        onChange={(e) => {
-                            const value: ProductType = newEntity
-                                ? { ...newEntity, size: e }
-                                : { size: e };
-                            setNewEntity(value);
-                        }}
-                    >
-                        <Option value='S'>S</Option>
-                        <Option value='M'>M</Option>
-                        <Option value='L'>L</Option>
-                    </Select>
-                </Row>
-                <Row>
-                    <Text>Giá mỗi size</Text>
-                    <Input
-                        placeholder='Giá mỗi size'
-                        onChange={(e) => {
-                            const value: ProductType = newEntity
-                                ? {
-                                      ...newEntity,
-                                      pricePlus: Number(e.target.value),
-                                  }
-                                : { pricePlus: Number(e.target.value) };
-                            setNewEntity(value);
-                        }}
-                        value={newEntity?.pricePlus}
-                    />
-                </Row>
-                <Row>
                     <Text>Ảnh</Text>
                     <Input
                         placeholder='Ảnh'
