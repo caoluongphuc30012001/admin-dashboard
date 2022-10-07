@@ -43,6 +43,8 @@ export default function AppProvider({ children }: AppContextProps) {
                         }
                     });
             }
+        } else if (route.pathname === '/login') {
+            route.push('/order', '/order');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
