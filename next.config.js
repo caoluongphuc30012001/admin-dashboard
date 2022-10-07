@@ -3,7 +3,7 @@ const nextConfig = {
     reactStrictMode: false,
     swcMinify: true,
     env: {
-        BACK_END_URL: 'http://13.250.111.36:3000'
+        BACK_END_URL: 'https://back-end-dacnpm.vercel.app'
     },
     async redirects() {
         return [
