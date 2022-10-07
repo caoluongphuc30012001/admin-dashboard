@@ -160,20 +160,6 @@ function TableCustom() {
             render: (text) => <Text>{text}</Text>,
         },
         {
-            title: 'Size',
-            dataIndex: 'size',
-            key: '_id',
-            align: 'center',
-            render: (text) => <Text>{text}</Text>,
-        },
-        {
-            title: 'Giá mỗi size',
-            dataIndex: 'pricePlus',
-            key: '_id',
-            align: 'center',
-            render: (text) => <Text>{text}</Text>,
-        },
-        {
             title: 'Ảnh',
             dataIndex: 'image',
             key: '_id',
