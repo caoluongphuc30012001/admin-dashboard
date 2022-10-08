@@ -31,7 +31,7 @@ function TableCustom() {
         axios
             .get(process.env.BACK_END_URL + '/topping/get-topping')
             .then((respone) => {
-                setData(respone.data.data.listCategory);
+                setData(respone.data.data.listTopping);
             })
             .catch((err) => {
                 console.log(err);
@@ -43,7 +43,7 @@ function TableCustom() {
                 .post(process.env.BACK_END_URL + '/topping/update-topping', {
                     ...newEntity,
                     userId: user?._id,
-                    categoryId: newEntity?._id,
+                    toppingId: newEntity?._id,
                 })
                 .then((response) => {
                     openNotification(
@@ -97,7 +97,7 @@ function TableCustom() {
         axios
             .post(process.env.BACK_END_URL + '/topping/delete-topping', {
                 userId: user?._id,
-                categoryId: newEntity?._id,
+                toppingId: newEntity?._id,
             })
             .then((response) => {
                 openNotification(
@@ -196,7 +196,7 @@ function TableCustom() {
     useEffect(() => {
         handleResetData();
         axios
-            .get(process.env.BACK_END_URL + '/topping/get-topping')
+            .get(process.env.BACK_END_URL + '/category/get-category')
             .then((respone) => {
                 setTypeList(respone.data.data.listCategory);
             })
