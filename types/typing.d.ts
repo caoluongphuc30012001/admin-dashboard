@@ -58,3 +58,4 @@ export type ToppingType = {
     createdAt?: string,
     updatedAt?: string,
 }
+export type PageType = 'pending' | 'cooking' | 'delivering' | 'complete';

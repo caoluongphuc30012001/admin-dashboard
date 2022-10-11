@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LayoutCustom from '@components/layout/LayoutCustom';
 import {
     ShoppingCartOutlined,
     OrderedListOutlined,
     ShopOutlined,
 } from '@ant-design/icons';
-import { MenuItemType } from 'types/typing';
+import { MenuItemType, PageType } from 'types/typing';
 import { useRouter } from 'next/router';
+import Heading from './components/heading';
+import TableCustom from './components/table';
 
 function OrderPage() {
     const route = useRouter();
@@ -41,9 +43,12 @@ function OrderPage() {
             icon: <ShopOutlined />,
         },
     ];
+
+    const [pageType, setPageType] = useState<PageType>('pending');
     return (
         <LayoutCustom listItemMenu={listItemMenu}>
-            <div>hihi</div>
+            <Heading setPageType={setPageType} pageType={pageType} />
+            <TableCustom pageType={pageType} />
         </LayoutCustom>
     );
 }
