@@ -2,7 +2,10 @@ import { Button, Modal, Row, Table, Typography, Input } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import {
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { PlusOutlined } from '@ant-design/icons';
 import { CategoryType } from 'types/typing';
 import { AppContext } from '@context/AppProvider';
@@ -21,7 +24,11 @@ function TableCustom() {
                 setData(respone.data.data.listCategory);
             })
             .catch((err) => {
-                console.log(err);
+                openNotification(
+                    'error',
+                    err.data.message,
+                    <ExclamationCircleOutlined />
+                );
             });
     };
     const handleOk = () => {

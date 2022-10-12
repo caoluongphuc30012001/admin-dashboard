@@ -24,3 +24,7 @@ a {
         background: black;
     }
 }
+
+.ant-card-head{
+    border-bottom: 1px solid black !important;
+}

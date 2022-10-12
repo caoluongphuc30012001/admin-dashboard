@@ -9,7 +9,10 @@ import {
     Table,
     Typography,
 } from 'antd';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import {
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import type { ColumnsType } from 'antd/lib/table';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
@@ -34,7 +37,11 @@ function TableCustom() {
                 setData(respone.data.data.listTopping);
             })
             .catch((err) => {
-                console.log(err);
+                openNotification(
+                    'error',
+                    err.data.message,
+                    <ExclamationCircleOutlined />
+                );
             });
     };
     const handleOk = () => {

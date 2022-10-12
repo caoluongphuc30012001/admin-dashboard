@@ -1,9 +1,12 @@
 import { AppContext } from '@context/AppProvider';
 import axios from 'axios';
-import React, { useCallback, useContext, useEffect } from 'react';
-import { PageType } from 'types/typing';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { OrderType, PageType } from 'types/typing';
 import { io } from 'socket.io-client';
-import { Button } from 'antd';
+import openNotification from '@components/openNotification';
+import { CheckCircleOutlined } from '@ant-design/icons';
+import CardCustom from './CardCustom';
+import { Modal } from 'antd';
 const socket = io(process.env.BACK_END_URL as string);
 type TableCustomProps = {
     pageType: PageType;
@@ -11,6 +14,8 @@ type TableCustomProps = {
 
 function TableCustom({ pageType }: TableCustomProps) {
     const { user } = useContext(AppContext);
+    const [listData, setListData] = useState<OrderType[] | undefined>();
+    const [current, setCurrent] = useState<OrderType | undefined>();
     const getData = useCallback(() => {
         if (pageType && user?._id)
             axios
@@ -19,35 +24,84 @@ function TableCustom({ pageType }: TableCustomProps) {
                     userId: user?._id,
                 })
                 .then((response) => {
-                    console.log(response);
+                    setListData(response.data.data.listOrder);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    openNotification(
+                        'error',
+                        err.data.message,
+                        <CheckCircleOutlined />
+                    );
                 });
     }, [pageType, user]);
     useEffect(() => {
-        socket.on('admin-dashboard', (res) => {
-            console.log(res);
+        getData();
+        socket.on('admin-dashboard', () => {
+            getData();
         });
         return () => {
             socket.off('admin-dashboard');
         };
-    }, []);
-    useEffect(() => {
-        getData();
     }, [getData]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        axios
+            .post(process.env.BACK_END_URL + '/order/delete-order', {
+                userId: user?._id,
+                orderId: current?._id,
+            })
+            .then((response) => {
+                openNotification(
+                    'success',
+                    response.data.message,
+                    <CheckCircleOutlined />
+                );
+                if (response.data.code === 406) {
+                    getData();
+                }
+            })
+            .catch((error) => {
+                openNotification(
+                    'error',
+                    error.data.message,
+                    <CheckCircleOutlined />
+                );
+            });
+        setCurrent(undefined);
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setCurrent(undefined);
+        setIsModalOpen(false);
+    };
     return (
-        <div>
-            <Button
-                onClick={() => {
-                    socket.emit('admin-submit', {
-                        message: 'reload',
-                    });
-                }}
+        <>
+            <Modal
+                title='Basic Modal'
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
             >
-                Click
-            </Button>
-        </div>
+                <p>Bạn có chắc muốn xóa đơn hàng này không?</p>
+            </Modal>
+            {listData?.map((item) => {
+                return (
+                    <CardCustom
+                        item={item}
+                        key={item._id}
+                        showModal={showModal}
+                        setCurrent={setCurrent}
+                        getData={getData}
+                    />
+                );
+            })}
+        </>
     );
 }
 
