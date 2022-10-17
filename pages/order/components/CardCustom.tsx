@@ -165,7 +165,7 @@ function CardCustom({ item, showModal, setCurrent, getData }: CardProps) {
                                 handleDelete(item);
                             }}
                         />
-                        {item.status !== 'complete' && (
+                        {item?.status !== 'complete' && (
                             <RightSquareOutlined
                                 style={{
                                     marginRight: 10,
@@ -178,9 +178,9 @@ function CardCustom({ item, showModal, setCurrent, getData }: CardProps) {
                                 }}
                             />
                         )}
-                        <Text>{`${item.userName} - ${item.phoneNumber}`}</Text>
+                        <Text>{`${item?.userName} - ${item?.phoneNumber}`}</Text>
                     </Text>
-                    {item.isPay ? (
+                    {item?.isPay ? (
                         <Text
                             style={{
                                 backgroundColor: 'green',
@@ -238,7 +238,7 @@ function CardCustom({ item, showModal, setCurrent, getData }: CardProps) {
                 >
                     Địa chỉ:
                 </Text>
-                <Text>{item.address}</Text>
+                <Text>{item?.address}</Text>
             </Row>
             <Row>
                 <Text
@@ -256,7 +256,7 @@ function CardCustom({ item, showModal, setCurrent, getData }: CardProps) {
                 })}
             </Row>
             <Space>
-                <Text strong>{`Tổng tiền: ${item.totalPrice}đ`}</Text>
+                <Text strong>{`Tổng tiền: ${item?.totalPrice}đ`}</Text>
             </Space>
         </Card>
     );
