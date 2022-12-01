@@ -2,11 +2,11 @@ import { AppContext } from '@context/AppProvider';
 import axios from 'axios';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { OrderType, PageType } from 'types/typing';
-import { io } from 'socket.io-client';
 import openNotification from '@components/openNotification';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import CardCustom from './CardCustom';
 import { Modal } from 'antd';
+import { io } from 'socket.io-client';
 const socket = io(process.env.BACK_END_URL as string);
 type TableCustomProps = {
     pageType: PageType;

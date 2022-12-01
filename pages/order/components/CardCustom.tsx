@@ -10,6 +10,8 @@ import {
 import axios from 'axios';
 import { AppContext } from '@context/AppProvider';
 import openNotification from '@components/openNotification';
+import { io } from 'socket.io-client';
+const socket = io(process.env.BACK_END_URL as string);
 const { Text } = Typography;
 
 type ProductItemProps = {
@@ -140,6 +142,9 @@ function CardCustom({ item, showModal, setCurrent, getData }: CardProps) {
                     );
                 });
         }
+        socket.emit("admin-submit",{
+            userId: value.userId
+        })
     };
     return (
         <Card
