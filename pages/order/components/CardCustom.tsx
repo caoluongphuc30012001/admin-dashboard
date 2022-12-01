@@ -61,7 +61,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
                         }}
                     >
                         <Text>
-                            <Avatar src={topping?.image} />
                             <Text
                                 style={{
                                     marginLeft: 10,
