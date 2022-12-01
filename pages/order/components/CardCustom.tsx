@@ -46,7 +46,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         >
             {product?.toppings?.map((topping: ToppingType, index: number) => {
                 const key = index + 1;
-                total += topping?.price * topping?.quantity;
+                total += topping?.price * topping?.quantity*product.quantity;
                 return (
                     <Space
                         key={key}
